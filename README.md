@@ -1,0 +1,2 @@
+# GHA
+Practicing GHA workflow
