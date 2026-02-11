@@ -7,8 +7,10 @@ jobs:
         steps:
             - name: "Checkout PR"
               uses: actions/checkout@v4
+            
+            - name: "Check files"
               run: |
-                - echo "hello"
-                - ls
+                echo "hello"
+                ls
             
               
