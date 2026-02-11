@@ -11,6 +11,6 @@ jobs:
             - name: "Check files"
               run: |
                 echo "hello"
-                ls ProjectA/
+                cat ProjectA/repo_list_qnx.json
             
               
