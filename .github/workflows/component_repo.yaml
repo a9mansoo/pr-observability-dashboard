@@ -10,7 +10,6 @@ jobs:
             
             - name: "Check files"
               run: |
-                echo "hello"
-                cat ProjectA/repo_list_qnx.json
+                git diff
             
               
