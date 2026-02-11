@@ -1,0 +1,14 @@
+on:
+   pull_request:
+     types: ["opened"]
+jobs:
+    test_pr:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "Checkout PR"
+              uses: actions/checkout@v4
+              run: |
+                - echo "hello"
+                - ls
+            
+              
