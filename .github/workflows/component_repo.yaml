@@ -10,6 +10,7 @@ jobs:
             
             - name: "Check files"
               run: |
-                git diff
+                git diff --name-only ${{ github.event.pull_request.base.sha }} \\
+                 ${{ github.event.pull_request.head.sha }}
             
               
