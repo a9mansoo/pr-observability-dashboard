@@ -11,6 +11,7 @@ jobs:
       - name: Notify on merge
         uses: actions/github-script@v8
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const pr = await github.rest.pulls.get({
               owner: context.repo.owner,
