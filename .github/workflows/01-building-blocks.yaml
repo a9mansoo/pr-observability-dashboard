@@ -1,0 +1,23 @@
+name: 01 - Building Blocks
+on:
+  pull_request:
+    types: ["closed"]
+
+jobs:
+  on_merge:
+    if: contains(github.event.pull_request.body, '<--- ENABLEMENT --->') && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify on merge
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: 3
+            })
+            console.log(pr.body)
+
+
+        
