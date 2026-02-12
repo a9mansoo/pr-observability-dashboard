@@ -15,7 +15,7 @@ jobs:
             const pr = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: 3
+              pull_number: context.payload.pull_request.number
             })
             console.log(pr.body)
 
