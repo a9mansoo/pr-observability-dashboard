@@ -1,0 +1,19 @@
+on:
+  issue_comment: 
+    types: ["created"]
+
+
+jobs:
+  run_stuff:
+    runs-on: "ubuntu"
+    steps:
+      - name: "Echo world"
+        run: "echo 'hello world'"
+      
+      - name: Dumb Step
+        run: |
+          echo "Hello ${{ github.event.issue.pull_request }}
+
+
+
+  
