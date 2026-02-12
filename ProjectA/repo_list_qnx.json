@@ -1,6 +1,7 @@
 {
     "repositories": [
         "REPO_A",
-        "REPO_ B"
+        "REPO_ B",
+        "REPO_C"
     ]
 }
