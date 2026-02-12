@@ -18,7 +18,7 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.payload.pull_request.number
             })
-            console.log(pr.body)
+            console.log(pr.data.body)
 
 
         
