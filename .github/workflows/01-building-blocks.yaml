@@ -3,6 +3,11 @@ on:
   pull_request:
     types: ["closed"]
 
+
+permissions:
+  contents: write
+
+
 jobs:
   on_merge:
     if: contains(github.event.pull_request.body, '<--- ENABLEMENT --->') && github.event.pull_request.merged == true
