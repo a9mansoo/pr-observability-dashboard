@@ -12,7 +12,8 @@ jobs:
       
       - name: Dumb Step
         run: |
-          echo "Hello ${{ github.event.issue.pull_request }}
+          echo "Hello ${{ toJSON(github.event.issue.pull_request) }}" > file.json
+          cat file.json
 
 
 
