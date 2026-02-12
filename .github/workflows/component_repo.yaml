@@ -1,14 +1,17 @@
 on:
    pull_request:
-     types: ["opened"]
+     types: ["opened", "synchronize"]
 jobs:
     test_pr:
         runs-on: ubuntu-latest
         steps:
             - name: "Checkout PR"
               uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
+            
+            - name: "Check files"
               run: |
-                - echo "hello"
-                - ls
+                git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
             
               
