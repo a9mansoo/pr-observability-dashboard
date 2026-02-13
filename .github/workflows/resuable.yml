@@ -12,3 +12,6 @@ jobs:
             - name: Get PR details
               run: |
                 echo ${{ github.event.pull_request.number }}
+            - name: Get PR diff
+              run: |
+                git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
