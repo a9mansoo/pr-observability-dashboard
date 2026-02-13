@@ -7,3 +7,5 @@ on:
 jobs:
     test_job:
         uses: a9mansoo/Reusbale-Workflows/.github/workflows/resuable.yml@main
+        with:
+            REPOSITORY: ${{ github.repository }}
