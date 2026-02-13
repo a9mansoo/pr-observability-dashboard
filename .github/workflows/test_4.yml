@@ -6,4 +6,4 @@ on:
 
 jobs:
     test_job:
-        uses: ./resuable.yml@main
+        uses: a9mansoo/GHA/.github/workflows/resuable.yml@main
