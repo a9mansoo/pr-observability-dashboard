@@ -1,0 +1,9 @@
+name: Use reusable workflow
+
+on:
+    pull_request:
+        types: [opened, synchronize]
+
+jobs:
+    test_job:
+        uses: ./resuable.yml@main
