@@ -7,7 +7,7 @@ on:
 
 jobs:
     call_reusable_workflow:
-        uses: a9mansoo/Reusable-Workflows/.github/workflows/ut-dev-runner.yml@main
+        uses: a9mansoo/Reusbale-Workflows/.github/workflows/ut-dev-runner.yml@main
         with:
             REPOSITORY: ${{ github.repository }}
         secrets:
