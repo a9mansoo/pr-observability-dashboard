@@ -22,5 +22,5 @@ jobs:
             
             - name: See output
               run: | 
-                 echo ${{ steps.outputs.config_output.MANIFEST_INFO }}
+                 echo ${{ steps.config_output.outputs.MANIFEST_INFO }}
               
