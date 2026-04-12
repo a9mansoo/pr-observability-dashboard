@@ -17,6 +17,7 @@ jobs:
             - name: Run script
               id: config_output
               run: |
+                npm i .github/scripts/package.json
                 node .github/scripts/index.js
             
             - name: See output
