@@ -7,4 +7,4 @@ jobs:
         steps:
             - name: Check users
               run: |
-                echo ${{ github.event.sender }}
+                echo ${{ toJson(github.event.sender) }}
