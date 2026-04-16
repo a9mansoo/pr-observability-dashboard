@@ -1,0 +1,10 @@
+on:
+    workflow_dispatch:
+
+jobs:
+    check_users:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check users
+              run: |
+                echo ${{ github.event.sender }}
