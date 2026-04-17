@@ -16,4 +16,5 @@ jobs:
               with:
                 name: artifact.txt
                 archive: false
+                path: $GITHUB_WORKSPACE/*.txt
               
