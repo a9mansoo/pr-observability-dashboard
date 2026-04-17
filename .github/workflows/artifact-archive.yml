@@ -1,0 +1,19 @@
+name: Archive Artifact
+
+on:
+    push
+
+jobs:
+    archive_on:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Run
+              run: |
+                echo "hello" > $GITHUB_WORKSPACE/hello.txt
+            
+            - name: Archive
+              uses: actions/upload-artifact@v7
+              with:
+                name: artifact.txt
+                archive: false
+              
