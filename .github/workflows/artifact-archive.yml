@@ -8,8 +8,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Run ${{ github.run_id }}
+              env:
+                run_id: ${{ github.run_id }}
               run: |
                 echo "hello" > $GITHUB_WORKSPACE/hello.txt
+                echo ${run_id}
             
             - name: Archive
               uses: actions/upload-artifact@v7
