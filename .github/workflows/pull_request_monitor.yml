@@ -1,0 +1,32 @@
+name: Report PR Statistics
+
+on:
+    workflow_dispatch:
+      inputs:
+        PR_TYPES:
+          options: ["READY_FOR_REVIEW", "DEPENDECY_UPDATES"]
+          type: choice
+          required: true
+
+jobs:
+    gather_prs_and_report:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Gather PRs based off of type ${{ github.inputs.PR_TYPES }}
+              env:
+                run_id: ${{ github.run_id }}
+              run: |
+                echo "hello" > $GITHUB_WORKSPACE/hello.txt
+                echo ${run_id}
+            
+            - name: Setup Python
+              uses: actions/setup-python@v4
+              
+            
+            - name: Upload PR Dashboard
+              uses: actions/upload-artifact@v7
+              with:
+                name: pr_dashboard.html
+                archive: false
+                path: ${{ github.workspace }}/*.html
+              
