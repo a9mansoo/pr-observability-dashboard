@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "required": ["rules"],
+    "properties": {
+      "rules": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            { "$ref": "#/definitions/labels_presence" },
+            { "$ref": "#/definitions/labels_actor" }
+          ]
+        }
+      }
+    }
+  },
+  "definitions": {
+    "labels_presence": {
+      "type": "object",
+      "required": ["type", "includes", "excludes"],
+      "properties": {
+        "type": { "const": "labels_presence" },
+        "includes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "excludes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "labels_actor": {
+      "type": "object",
+      "required": ["type", "labels_to_check", "actor"],
+      "properties": {
+        "type": { "const": "labels_actor" },
+        "labels_to_check": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "actor": { "type": "string" }
+      }
+    }
+  }
+}
