@@ -1,0 +1,24 @@
+{
+  "READY_FOR_REVIEW": {
+    "rules": [
+      {
+        "type": "labels_presence",
+        "includes": ["ready_for_review"],
+        "excludes": ["wip"]
+      },
+      {
+        "type": "labels_actor",
+        "labels_to_check": ["ready_for_review"],
+        "actor": "a9mansoo"
+      }
+    ]
+  },
+  "DEPENDECY_UPDATES": {
+    "rules": [
+      {
+        "type": "labels_presence",
+        "includes": ["dependencies"]
+      }
+    ]
+  }
+}
