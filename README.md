@@ -62,7 +62,7 @@ on:
 
 jobs:
   observe:
-    uses: a9mansoo/GHA/.github/workflows/pull_request_monitor.yml@v1
+    uses: a9mansoo/pr-observability-dashboard/.github/workflows/pull_request_monitor.yml@v1
     with:
       PR_TYPES: 'READY_FOR_REVIEW'
       REPOSITORY: ${{ github.repository }}

@@ -35,7 +35,7 @@ jobs:
             - name: Checkout Resources
               uses: actions/checkout@v4
               with:
-                repository: a9mansoo/GHA
+                repository: a9mansoo/pr-observability-dashboard
                 path: resources
             
             - name: Checkout Repo Config
