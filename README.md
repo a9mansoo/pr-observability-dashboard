@@ -287,7 +287,6 @@ The collector produces:
 The generated dashboard includes:
 
 * PR grouping by state
-* sortable tables
 * quick navigation links
 * static HTML (no runtime dependencies)
 
