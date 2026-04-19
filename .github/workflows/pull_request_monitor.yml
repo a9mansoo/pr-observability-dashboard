@@ -14,6 +14,8 @@ on:
 jobs:
     gather_prs:
         runs-on: ubuntu-latest
+        outputs:
+          PR_DATA: ${{ steps.artifact-archive.outputs.artifact-id }}
         steps:
             - name: Checkout Repo
               uses: actions/checkout@v4
@@ -40,9 +42,48 @@ jobs:
                 npm run collect-prs
             
             - name: Archive PR Info
+              id: artifact-archive
               uses: actions/upload-artifact@v7
               with:
                 archive: false
                 path: ${{ steps.pr-info.outputs.PR_LIST }}
                 if-no-files-found: error
-              
+    
+    report_dashboard:
+      needs: [gather_prs]
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repo
+          uses: actions/checkout@v4
+          with:
+            repository: a9mansoo/GHA
+            path: resources
+        
+        - name: Setup Python
+          uses: actions/setup-python@v4
+        
+        - name: Install dependencies
+          working-directory: resources/.github/dashboards
+          run: |
+            pip install -r requirements.txt
+        
+        - name: Fetch Dashboard Data
+          uses: actions/download-artifact@v7
+          id: pr-data
+          with:
+            artifact-id: ${{ needs.gather_prs.outputs.PR_DATA }}
+        
+        - name: Create Dashboard
+          id: dashboard
+          env:
+            DASHBOARD_FILE: ${{ github.workspace }}/dashboard.html
+          run: |
+             echo "DASHBOARD_FILE=$DASBOARD_FILE" >> $GITHUB_OUTPUTS
+             python generate_template.py --output $DASHBOARD_FILE --input ${{ steps.pr-data.outputs.download-path }}
+        
+        - name: Archive Dashboard
+          uses: actions/upload-artifact@v7
+          with:
+            archive: false
+            path: ${{ steps.dashboard.outputs.DASHBOARD_FILE}}
+            if-no-files-found: error
