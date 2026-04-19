@@ -63,7 +63,7 @@ jobs:
         - name: Setup Python
           uses: actions/setup-python@v4
           with:
-            python-version: 12
+            python-version: 10
         
         - name: Install dependencies
           working-directory: resources/.github/dashboards
