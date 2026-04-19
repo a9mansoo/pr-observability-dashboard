@@ -71,7 +71,7 @@ jobs:
           uses: actions/download-artifact@v7
           id: pr-data
           with:
-            artifact-id: ${{ needs.gather_prs.outputs.PR_DATA }}
+            artifact-ids: ${{ needs.gather_prs.outputs.PR_DATA }}
         
         - name: Create Dashboard
           id: dashboard
