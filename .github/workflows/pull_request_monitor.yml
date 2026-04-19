@@ -80,6 +80,7 @@ jobs:
           id: dashboard
           env:
             DASHBOARD_FILE: ${{ github.workspace }}/dashboard.html
+          working-directory: resources/dashboards
           run: |
              ls -al
              echo "DASHBOARD_FILE=$DASBOARD_FILE" >> $GITHUB_OUTPUT
