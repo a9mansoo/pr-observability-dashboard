@@ -81,6 +81,7 @@ jobs:
           env:
             DASHBOARD_FILE: ${{ github.workspace }}/dashboard.html
           run: |
+             ls -al
              echo "DASHBOARD_FILE=$DASBOARD_FILE" >> $GITHUB_OUTPUT
              python generate_template.py --output $DASHBOARD_FILE --input ${{ steps.pr-data.outputs.download-path }}
         
