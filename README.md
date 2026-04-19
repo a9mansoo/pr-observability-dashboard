@@ -62,12 +62,13 @@ on:
 
 jobs:
   observe:
-    uses: your-org/pr-observability/.github/workflows/collector.yml@v1
+    uses: a9mansoo/.github/workflows/pull_request_monitor.yml@v1
     with:
-      repository: owner/repo
-      config_path: .github/pr-rules.json
+      PR_TYPES: 'READY_FOR_REVIEW'
+      REPOSITORY: ${{ github.repository }}
+      CONFIG_PATH: .github/pr-rules.json
     secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ---

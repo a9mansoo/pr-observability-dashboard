@@ -1,14 +1,29 @@
 name: Report PR Statistics
 
 on:
-    workflow_dispatch:
+    # workflow_dispatch:
+    #   inputs:
+    #     PR_TYPES:
+    #       options: ["READY_FOR_REVIEW", "DEPENDECY_UPDATES"]
+    #       type: choice
+    #       required: true
+    #     REPOSITORY:
+    #       type: string
+    #       required: true
+    workflow_call:
       inputs:
         PR_TYPES:
-          options: ["READY_FOR_REVIEW", "DEPENDECY_UPDATES"]
-          type: choice
+          type: string
           required: true
         REPOSITORY:
           type: string
+          required: true
+        CONFIG_PATH:
+          type: string
+          required: true
+          default: '.github/pr-rules.json'
+      secrets:
+        REPO_TOKEN:
           required: true
 
 jobs:
@@ -17,11 +32,17 @@ jobs:
         outputs:
           PR_DATA: ${{ steps.artifact-archive.outputs.artifact-id }}
         steps:
-            - name: Checkout Repo
+            - name: Checkout Resources
               uses: actions/checkout@v4
               with:
                 repository: a9mansoo/GHA
                 path: resources
+            
+            - name: Checkout Repo Config
+              uses: actions/checkout@v4
+              with:
+                path: config
+              
             
             - name: Setup Node
               uses: actions/setup-node@v4
@@ -36,9 +57,9 @@ jobs:
               env:
                 RUN_ID: ${{ github.run_id }}
                 RULE_NAME: ${{ inputs.PR_TYPES }}
-                CONFIG_FILE: ${{ github.workspace }}/resources/.github/pr-rules.json
-                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                REPOSITORY: ${{ github.repository }}
+                CONFIG_FILE: ${{ github.workspace }}/config/${{ inputs.CONFIG_PATH }}
+                GH_TOKEN: ${{ secrets.REPO_TOKEN }}
+                REPOSITORY: ${{ inputs.REPOSITORY }}
               working-directory: resources/.github/scripts
               run: |
                 npm run collect-prs
