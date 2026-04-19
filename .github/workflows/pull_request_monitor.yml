@@ -84,7 +84,7 @@ jobs:
           run: |
              ls -al
              echo "DASHBOARD_FILE=$DASBOARD_FILE" >> $GITHUB_OUTPUT
-             python generate_template.py --output $DASHBOARD_FILE --input ${{ steps.pr-data.outputs.download-path }}
+             python generate_template.py --output "${DASHBOARD_FILE}" --input ${{ steps.pr-data.outputs.download-path }}
         
         - name: Archive Dashboard
           uses: actions/upload-artifact@v7
