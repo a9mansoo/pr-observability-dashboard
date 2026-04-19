@@ -81,7 +81,7 @@ jobs:
           env:
             DASHBOARD_FILE: ${{ github.workspace }}/dashboard.html
           run: |
-             echo "DASHBOARD_FILE=$DASBOARD_FILE" >> $GITHUB_OUTPUTS
+             echo "DASHBOARD_FILE=$DASBOARD_FILE" >> $GITHUB_OUTPUT
              python generate_template.py --output $DASHBOARD_FILE --input ${{ steps.pr-data.outputs.download-path }}
         
         - name: Archive Dashboard
