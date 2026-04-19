@@ -1,0 +1,115 @@
+name: Report PR Statistics
+
+on:
+    # workflow_dispatch:
+    #   inputs:
+    #     PR_TYPES:
+    #       options: ["READY_FOR_REVIEW", "DEPENDECY_UPDATES"]
+    #       type: choice
+    #       required: true
+    #     REPOSITORY:
+    #       type: string
+    #       required: true
+    workflow_call:
+      inputs:
+        PR_TYPES:
+          type: string
+          required: true
+        REPOSITORY:
+          type: string
+          required: true
+        CONFIG_PATH:
+          type: string
+          required: true
+          default: '.github/pr-rules.json'
+      secrets:
+        REPO_TOKEN:
+          required: true
+
+jobs:
+    gather_prs:
+        runs-on: ubuntu-latest
+        outputs:
+          PR_DATA: ${{ steps.artifact-archive.outputs.artifact-id }}
+        steps:
+            - name: Checkout Resources
+              uses: actions/checkout@v4
+              with:
+                repository: a9mansoo/GHA
+                path: resources
+            
+            - name: Checkout Repo Config
+              uses: actions/checkout@v4
+              with:
+                path: config
+              
+            
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                node-version: '20'
+            
+            - name: Install Dependencies
+              run: |
+                 npm i resources/.github/scripts/
+            - name: Gather PRs based off of type ${{ inputs.PR_TYPES }}
+              id: pr-info
+              env:
+                RUN_ID: ${{ github.run_id }}
+                RULE_NAME: ${{ inputs.PR_TYPES }}
+                CONFIG_FILE: ${{ github.workspace }}/config/${{ inputs.CONFIG_PATH }}
+                GH_TOKEN: ${{ secrets.REPO_TOKEN }}
+                REPOSITORY: ${{ inputs.REPOSITORY }}
+              working-directory: resources/.github/scripts
+              run: |
+                npm run collect-prs
+            
+            - name: Archive PR Info
+              id: artifact-archive
+              uses: actions/upload-artifact@v7
+              with:
+                path: ${{ steps.pr-info.outputs.PR_LIST }}
+                if-no-files-found: error
+    
+    report_dashboard:
+      needs: [gather_prs]
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repo
+          uses: actions/checkout@v4
+          with:
+            repository: a9mansoo/GHA
+            path: resources
+        
+        - name: Setup Python
+          uses: actions/setup-python@v4
+          with:
+            python-version: '3.10'
+        
+        - name: Install dependencies
+          working-directory: resources/.github/dashboards
+          run: |
+            pip install -r requirements.txt
+        
+        - name: Fetch Dashboard Data
+          uses: actions/download-artifact@v7
+          id: pr-data
+          with:
+            artifact-ids: ${{ needs.gather_prs.outputs.PR_DATA }}
+        
+        - name: Create Dashboard
+          id: dashboard
+          env:
+            DASHBOARD_FILE: ${{ github.workspace }}/dashboard.html
+          working-directory: resources/.github/dashboards
+          run: |
+             ls -al
+             echo "DASHBOARD_FILE=$DASHBOARD_FILE" >> $GITHUB_OUTPUT
+             python generate_template.py --output "${DASHBOARD_FILE}" --input ${{ steps.pr-data.outputs.download-path }}
+        
+        - name: Archive Dashboard
+          uses: actions/upload-artifact@v7
+          with:
+            archive: false
+            path: ${{ steps.dashboard.outputs.DASHBOARD_FILE}}
+            if-no-files-found: error
