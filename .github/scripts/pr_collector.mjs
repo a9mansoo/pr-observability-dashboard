@@ -88,6 +88,7 @@ async function main() {
     const rules = getConfigRules(config, params.ruleName);
     const collectedPrs = await collectPrs(githubApi, params.repository, rules);
     writeOutput(params.outLocation, collectedPrs, params.repository);
+    console.log(`[INFO]: Written out file to: ${params.outLocation}`)
     core.setOutput("PR_LIST", params.outLocation);
   } catch (err) {
     core.setFailed(`[ERROR]: Failed to process PRs: ${err.message}`);
