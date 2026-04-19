@@ -1,4 +1,5 @@
 import os
+import glob
 from datetime import datetime, timezone
 import json
 import argparse
@@ -47,12 +48,30 @@ def get_argparser():
     parser.add_argument("--output", required=True, help="Output HTML file")
     return parser
 
+def resolve_input_path(input_path):
+    if os.path.isfile(input_path):
+        return input_path
+
+    files = glob.glob(os.path.join(input_path, "*.json"))
+
+    if not files:
+        raise FileNotFoundError(f"No JSON file found in {input_path}")
+
+    if len(files) > 1:
+        raise Exception(f"Multiple JSON files found: {files}")
+
+    return files[0]
+
+def load_input_file(input_file_location):
+    path = resolve_input_path(input_file_location)
+    with open(path, "r") as f:
+        data = json.load(f)
+    return data
 
 def main():
     args = get_argparser().parse_args()
 
-    with open(args.input, "r") as f:
-        data = json.load(f)
+    data = load_input_file(args.input)
 
     render_template(
         template_name="PR_DASHBOARD",
