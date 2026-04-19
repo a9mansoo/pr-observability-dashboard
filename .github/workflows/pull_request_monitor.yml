@@ -44,4 +44,5 @@ jobs:
               with:
                 archive: false
                 path: ${{ steps.pr-info.outputs.PR_LIST }}
+                if-no-files-found: error
               
