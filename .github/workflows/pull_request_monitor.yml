@@ -7,6 +7,9 @@ on:
           options: ["READY_FOR_REVIEW", "DEPENDECY_UPDATES"]
           type: choice
           required: true
+        REPOSITORY:
+          type: string
+          required: true
 
 jobs:
     gather_prs:
@@ -24,14 +27,14 @@ jobs:
             - name: Install Dependencies
               run: |
                  npm i resources/.github/scripts/
-            - name: Gather PRs based off of type ${{ github.inputs.PR_TYPES }}
+            - name: Gather PRs based off of type ${{ inputs.PR_TYPES }}
               id: pr-info
               env:
                 RUN_ID: ${{ github.run_id }}
-                RULE_NAME: ${{ github.inputs.PR_TYPES }}
+                RULE_NAME: ${{ inputs.PR_TYPES }}
                 CONFIG_FILE: ${{ github.workspace }}/resources/.github/pr-rules.json
-                GH_TOKEN: ${{ secrets.GH_TOKEN }}
-                REPOSITORY: ${{ github.inputs.REPOSITORY }}
+                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                REPOSITORY: ${{ github.repository }}
               working-directory: resources/.github/scripts
               run: |
                 npm run collect-prs
