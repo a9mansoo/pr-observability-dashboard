@@ -32,6 +32,7 @@ jobs:
                 CONFIG_FILE: ${{ github.workspace }}/resources/.github/pr-rules.json
                 GH_TOKEN: ${{ secrets.GH_TOKEN }}
                 REPOSITORY: ${{ github.inputs.REPOSITORY }}
+              working-directory: resources/.github/scripts
               run: |
                 npm run collect-prs
             
