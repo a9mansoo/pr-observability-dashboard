@@ -1,20 +1,24 @@
 {
   "type": "object",
-  "additionalProperties": {
-    "type": "object",
-    "required": ["rules"],
-    "properties": {
-      "rules": {
-        "type": "array",
-        "items": {
-          "oneOf": [
-            { "$ref": "#/definitions/labels_presence" },
-            { "$ref": "#/definitions/labels_actor" }
-          ]
+  "patternProperties": {
+    "^[A-Z_]+$": {
+      "type": "object",
+      "required": ["rules"],
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "$ref": "#/definitions/labels_presence" },
+              { "$ref": "#/definitions/labels_actor" }
+            ]
+          }
         }
-      }
+      },
+      "additionalProperties": false
     }
   },
+  "additionalProperties": false,
   "definitions": {
     "labels_presence": {
       "type": "object",
@@ -29,9 +33,9 @@
           "type": "array",
           "items": { "type": "string" }
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "labels_actor": {
       "type": "object",
       "required": ["type", "labels_to_check", "actor"],
@@ -41,8 +45,11 @@
           "type": "array",
           "items": { "type": "string" }
         },
-        "actor": { "type": "string" }
-      }
+        "actor": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

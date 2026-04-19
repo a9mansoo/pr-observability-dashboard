@@ -17,7 +17,8 @@
     "rules": [
       {
         "type": "labels_presence",
-        "includes": ["dependencies"]
+        "includes": ["dependencies"],
+        "excludes": []
       }
     ]
   }
