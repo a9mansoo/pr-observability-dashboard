@@ -18,6 +18,11 @@ async function collectPrs(githubApi, repository, rules) {
   });
   let validPrs = []
 
+  if (prs.length === 0) {
+    console.log("[INFO]: No PRs to process for repo");
+    return validPrs;
+  }
+
   for (let pr of prs) {
     let events = await githubApi.listPrEvents(repository, pr);
     let isValid = runRulesEngine(rules, {...pr, prEvents: events});
