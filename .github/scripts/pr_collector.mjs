@@ -72,13 +72,13 @@ function writeOutput(outLocation, collectedPrs, repository) {
 
 async function main() {
   const params = {
-    ruleName: process.env.ruleName,
-    configFile: process.env.configFile,
+    ruleName: process.env.RULE_NAME,
+    configFile: process.env.CONFIG_FILE,
     apiToken: process.env.GH_TOKEN,
     repository: process.env.REPOSITORY,
     outLocation: path.join(
       process.env.GITHUB_WORKSPACE || process.cwd(),
-      "prs_collected.json",
+      `prs_collected-${process.env.RUN_ID || 'local'}.json`,
     ),
   };
 
