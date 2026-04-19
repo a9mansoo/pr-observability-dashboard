@@ -43,5 +43,5 @@ jobs:
               uses: actions/upload-artifact@v7
               with:
                 archive: false
-                path: ${{ github.workspace }}/${{ steps.pr-info.outputs.PR_LIST }}
+                path: ${{ steps.pr-info.outputs.PR_LIST }}
               
