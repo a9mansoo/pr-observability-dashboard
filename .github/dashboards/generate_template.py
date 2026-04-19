@@ -80,6 +80,7 @@ def main():
             context=data,
             output_path=args.output
         )
+        print(f"Created output file: ${args.output}")
     except Exception as e:
         print(str(e))
         sys.exit(1)
