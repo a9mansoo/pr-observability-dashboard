@@ -28,6 +28,7 @@ async function collectPrs(githubApi, repository, rules) {
     let isValid = runRulesEngine(rules, {...pr, prEvents: events});
     if (isValid) validPrs.push(pr);
   }
+  console.log(`[INFO]: Number of PRs processed: ${prs.length} PRs collected: ${validPrs.length}`);
   return validPrs;
 }
 

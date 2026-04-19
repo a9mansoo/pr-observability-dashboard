@@ -6,7 +6,7 @@ function checkRules(rules, pr) {
     try {
       const {type, ...params} = rule;
       const ruleFunc = getRule(type);
-      console.log(`[INFO]: Processing PR#: ${pr.number} with rule type: ${type} and parameters: ${params}`)
+      console.log(`[INFO]: Processing PR#: ${pr.number} with rule type: ${type} and parameters: ${JSON.stringify(params)}`)
       let ruleResult = ruleFunc(pr, params);
       rulesResults.push(ruleResult);
     } catch (err) {
