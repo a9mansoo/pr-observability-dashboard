@@ -1,5 +1,6 @@
 import os
 import glob
+import sys
 from datetime import datetime, timezone
 import json
 import argparse
@@ -69,15 +70,19 @@ def load_input_file(input_file_location):
     return data
 
 def main():
-    args = get_argparser().parse_args()
+    try:
+        args = get_argparser().parse_args()
 
-    data = load_input_file(args.input)
+        data = load_input_file(args.input)
 
-    render_template(
-        template_name="PR_DASHBOARD",
-        context=data,
-        output_path=args.output
-    )
+        render_template(
+            template_name="PR_DASHBOARD",
+            context=data,
+            output_path=args.output
+        )
+    except Exception as e:
+        print(str(e))
+        sys.exit(1)
 
 
 if __name__ == "__main__":
