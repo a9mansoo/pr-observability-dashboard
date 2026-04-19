@@ -37,6 +37,7 @@ jobs:
               with:
                 repository: a9mansoo/GHA
                 path: resources
+                token: ${{ secrets.CHECKOUT_TOKEN }}
             
             - name: Checkout Repo Config
               uses: actions/checkout@v4
