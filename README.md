@@ -6,6 +6,8 @@ It helps teams answer one question:
 
 > **“What PRs need my attention right now?”**
 
+![alt text](image.png)
+
 ---
 
 ## Architecture
